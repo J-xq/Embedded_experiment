@@ -1,0 +1,29 @@
+export PATH=/opt/armhf-linux-2018.08/bin:$PATH
+set ipaddr 192.168.208.241
+set serverip 192.168.208.41
+
+setenv bootargs console=ttyO0,115200n8 root=/dev/ram rw initrd=0x88080000,8M
+
+tftp 0x82000000 zImage
+tftp 0x88080000 ramdisk_img.gz
+tftp 0x88000000 am335x-boneblack.dtb
+
+bootz 0x82000000 - 0x88000000
+
+
+make ARCH=arm bb.org_defconfig
+
+make ARCH=arm CROSS_COMPILE=arm-linux- menuconfig
+
+
+make ARCH=arm CROSS_COMPILE=arm-linux- -j8
+
+ifconfig eth0 192.168.208.241
+mount 192.168.208.41:/srv/nfs4 /mnt -o nolock -o proto=tcp
+
+
+
+./x11vnc -rawfb /dev/fb0 -forever &
+
+
+
