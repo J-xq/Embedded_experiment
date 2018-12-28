@@ -27,3 +27,9 @@ mount 192.168.208.41:/srv/nfs4 /mnt -o nolock -o proto=tcp
 
 
 
+export TSLIB_TSDEVICE=/dev/input/event1
+export TSLIB_CONFFILE=/usr/etc/ts.conf
+export TSLIB_PLUGINDIR=/usr/lib/ts
+export TSLIB_CONSOLEDEVICE=none
+export TSLIB_FBDEVICE=/dev/fb0
+export TSLIB_CALIBFILE=/etc/pointercal
